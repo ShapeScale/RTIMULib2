@@ -230,6 +230,7 @@ bool RTIMUMPU9250::IMUInit()
         return false;
     }
 
+
     //  now configure the various components
 
     if (!setGyroConfig())
@@ -247,6 +248,10 @@ bool RTIMUMPU9250::IMUInit()
 
     if (!setCompassRate())
         return false;
+        
+     if (!m_settings->HALWrite(m_slaveAddr, MPU9250_INT_PIN_CFG, 0x00, "Failed to write int_pin_cfg reg"))
+         return false;
+
 
     //  enable the sensors
 
@@ -467,7 +472,7 @@ bool RTIMUMPU9250::bypassOn()
 
     m_settings->delayMs(50);
 
-    if (!m_settings->HALWrite(m_slaveAddr, MPU9250_INT_PIN_CFG, 0x82, "Failed to write int_pin_cfg reg"))
+    if (!m_settings->HALWrite(m_slaveAddr, MPU9250_INT_PIN_CFG, 0x02, "Failed to write int_pin_cfg reg"))
         return false;
 
     m_settings->delayMs(50);
@@ -489,8 +494,7 @@ bool RTIMUMPU9250::bypassOff()
 
     m_settings->delayMs(50);
 
-    if (!m_settings->HALWrite(m_slaveAddr, MPU9250_INT_PIN_CFG, 0x80, "Failed to write int_pin_cfg reg"))
-         return false;
+   
 
     m_settings->delayMs(50);
     return true;

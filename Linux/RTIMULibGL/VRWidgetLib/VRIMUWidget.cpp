@@ -25,11 +25,9 @@
 
 //  Do simpler shading on ARMs
 
-#if defined(__arm__) || defined(__ARMEL__)
-#define VRIMUWIDGET_SHADER  QTGLSHADER_TEXTURE
-#else
+
 #define VRIMUWIDGET_SHADER  QTGLSHADER_ADSTEXTURE
-#endif
+
 
 VRIMUWidget::VRIMUWidget(QObject *parent, VRWIDGET_TYPE widgetType)
     : VRWidget(parent, widgetType)
